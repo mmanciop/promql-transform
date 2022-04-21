@@ -50,9 +50,6 @@ jobs:
     needs:
       - lint
       - test
-    env:
-      CGO_ENABLED: 0
-      TAG: ${{ github.event.release.tag_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
