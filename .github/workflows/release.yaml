@@ -90,19 +90,19 @@ jobs:
     needs:
       - build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"    
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: artifacts/
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Create release tag
         uses: rickstaa/action-create-tag@v1
         with:
           tag: "rel-${{ steps.date.outputs.date }}"
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts/
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
