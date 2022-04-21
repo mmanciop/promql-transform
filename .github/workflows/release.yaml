@@ -115,7 +115,7 @@ jobs:
         with:
           name: "Release ${{ steps.date.outputs.date }}"
           omitBody: true
-          artifacts: "artifacts/*"
+          artifacts: "artifacts/promql-transform-*/*"
           tag: "rel-${{ steps.date.outputs.date }}"
           token: ${{ secrets.GITHUB_TOKEN }}
 
