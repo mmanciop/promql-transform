@@ -108,11 +108,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: artifacts/
+      - run: |
+          find artifacts
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
           name: "Release ${{ steps.date.outputs.date }}"
-          omitBody: "true"
+          omitBody: true
           artifacts: "artifacts/*"
           tag: "rel-${{ steps.date.outputs.date }}"
           token: ${{ secrets.GITHUB_TOKEN }}
