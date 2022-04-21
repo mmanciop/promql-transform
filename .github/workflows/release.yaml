@@ -108,14 +108,16 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: artifacts/
-      - run: |
-          find artifacts
+      - name: Prepare artifacts for release
+        run: |
+          mkdir -p artifacts/release
+          find artifacts -type f | awk -F/ '{ print $2 }' | xargs -I {} cp artifacts/{}/promql-transform artifacts/release/{}
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
           name: "Release ${{ steps.date.outputs.date }}"
           omitBody: true
-          artifacts: "artifacts/promql-transform-*/*"
+          artifacts: "artifacts/release/*"
           tag: "rel-${{ steps.date.outputs.date }}"
           token: ${{ secrets.GITHUB_TOKEN }}
 
