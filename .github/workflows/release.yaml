@@ -96,6 +96,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - run: |
+          pwd
           find .
       - name: Create release tag
         uses: rickstaa/action-create-tag@v1
