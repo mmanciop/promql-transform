@@ -92,7 +92,7 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"    
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"    
       - name: Checkout
         uses: actions/checkout@v2
       - name: Change perms on GITHUB_WORKSPACE
