@@ -95,9 +95,11 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"    
       - name: Checkout
         uses: actions/checkout@v2
-      - run: |
-          pwd
-          find .
+      - name: Change perms on GITHUB_WORKSPACE
+        # Workaround for Git 2.34, see https://github.com/rickstaa/action-create-tag/issues/10
+        run: |
+          sudo chown -R root:root $GITHUB_WORKSPACE
+          sudo chmod -R 0777 $GITHUB_WORKSPACE
       - name: Create release tag
         uses: rickstaa/action-create-tag@v1
         with:
@@ -106,8 +108,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: artifacts/
-      - run: |
-          find .
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         with:
