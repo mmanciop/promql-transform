@@ -145,7 +145,7 @@ jobs:
         env:
           CHARMCRAFT_AUTH: ${{ secrets.CHARMHUB_TOKEN }}
         run: |
-          if output=$(charmcraft upload-resource ${{ matrix.charm }} promql-transform-${{matrix.arch}} --file artifacts/promql-transform-${{matrix.arch}}); then
+          if output=$(charmcraft upload-resource ${{ matrix.charm }} promql-transform-${{matrix.arch}} --file artifacts/promql-transform-${{matrix.arch}}/promql-transform); then
             if revision=$(echo "${output}" | sed 's/^Revision \([0-9]\{1,\}\) .*$/\1/'); then
               echo "::set-output name=rev::${revision}"
             fi
