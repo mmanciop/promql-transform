@@ -89,6 +89,8 @@ jobs:
     needs:
       - build
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"    
@@ -96,8 +98,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: artifacts/
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Create release tag
         uses: rickstaa/action-create-tag@v1
         with:
@@ -123,6 +123,8 @@ jobs:
         arch: [amd64, arm64]
         charm: [prometheus-k8s, grafana-k8s]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Install charmcraft
         run: |
           sudo snap install charmcraft --classic
@@ -134,8 +136,6 @@ jobs:
         # This assumes that the amd64 and arm64 revisions are in lockstep.
         run: |
           echo "::set-output name=rev::$(($(charmcraft resource-revisions ${{ matrix.charm }} promql-transform-${{matrix.arch}} | tail -n+2 | head -1 | awk '{ print $1 }') + 1))"
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Create tag for ${{matrix.charm}} charm, ${{matrix.arch}} architecture
         uses: rickstaa/action-create-tag@v1
         with:
