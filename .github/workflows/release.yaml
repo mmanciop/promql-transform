@@ -76,7 +76,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: promql-transform-amd64
-          path: dist/promql-transform_linux_amd64/promql-transform
+          # The v1 refers to the amd64 arch, see https://goreleaser.com/customization/build/
+          path: dist/promql-transform_linux_amd64_v1/promql-transform
       - name: Upload arm64 assets
         uses: actions/upload-artifact@v3
         with:
